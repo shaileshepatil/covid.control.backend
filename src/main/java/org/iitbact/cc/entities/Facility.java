@@ -57,7 +57,6 @@ public class Facility implements Serializable {
 	@Column(name = "facility_status")
 	private String facilityStatus = "Unassigned";
 
-
 	@Column(name = "government_hospital")
 	private byte governmentHospital;
 
@@ -90,6 +89,9 @@ public class Facility implements Serializable {
 	@Column(name = "has_links")
 	private Boolean hasLinks;
 
+	@Column(name = "operating_status")
+	private Boolean operatingStatus;
+
 	// bi-directional one-to-one association to FacilityContact
 	@OneToOne(mappedBy = "facility", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private FacilityContact facilityContact;
@@ -109,6 +111,9 @@ public class Facility implements Serializable {
 	    // This will be null only for the first time, will be updated only by through automatic logic
 	    if(hasLinks == null){
 	    	hasLinks = false;
+		}
+	    if(operatingStatus == null){
+	    	operatingStatus = false;
 		}
 
     }
@@ -133,6 +138,7 @@ public class Facility implements Serializable {
 		this.facilityContact = that.facilityContact;
 		this.facilityContact.setFacilityId(this.facilityId);
 		this.region = user.getRegion();
+		this.operatingStatus = that.operatingStatus;
 		// hasLinks will not be updated through the front-end ever.
 
 	}
